@@ -17,7 +17,6 @@ This repository serves to showcase my skills and as a platform to share my proje
 - [Contacts](#contacts)
 
 ## Projects
-In this section I will list data analytics projects briefly describing the technology stack used to solve cases.
 
 ### Cancer Patients Analysis
 **Code:** [`cancer patients data analysis.rmd`](https://github.com/katelinan/katelinan.github.io/blob/76ae2bb80fe435adad53409233e2d749d46d891c/Cancer%20Patients%20Data%20Analysis.Rmd)   
