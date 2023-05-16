@@ -1,0 +1,166 @@
+---
+title: Analysis of Coping Strategies, Symptoms, Support, and Health Status in Cancer
+  Patients
+author: "Katelin An"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+editor_options:
+  chunk_output_type: console
+---  
+
+# Packages
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+library(haven)
+library(QuantPsyc)
+library(psych)
+library(dplyr)
+library(knitr)
+library(ggcorrplot)
+library(corrplot)
+library(moonBook)
+library(ggplot2)
+```
+
+# The Data
+
+The data consists of the the demographics, health status, total trauma symptoms, physical symptoms, coping strategies, support systems, and treatment of female patients with breast cancer in a particular study.  
+
+The data was collected into an SPSS file, where it was cleaned for missing values. 
+
+```{r}
+#Delete rows with missing values in SPSS using 'Select Cases:If' and NMISS() function
+#Import the data set
+Breast_Cancer_Dataset <- read_sav("Breast_Cancer_Dataset.sav")
+View(Breast_Cancer_Dataset)
+#Rename the data set as df
+df <- Breast_Cancer_Dataset
+```
+
+# Correlation Study
+
+**Question**: What is the correlation between physical symptoms and health status in female patients with breast cancer?
+
+**Goal**: The aim of this study was to investigate the relationship between the number of physical symptoms related to a breast cancer diagnosis (MSAS_TOT1) and the participant's current health status (Health_Status) by conducting a correlation test.
+
+**Hypothesis**: I hypothesized that there would be a significant, negative correlation between physical symptoms and health status. Thus, as the number of physical symptoms of cancer increased, the participant's health status would decrease.
+
+**Correlation Test**
+
+```{r}
+#Run correlation test
+cor.test(df$MSAS_TOT1, df$Health_Status)
+```
+
+**Results**: The results of the correlation test indicated that there was a significant, negative correlation between physical symptoms and health status (*r* = -.398, *p* = .001). However, the correlation between physical symptoms and health status was weak. 
+
+**Scatter Plot** 
+
+```{r}
+ggplot(df, aes(x = MSAS_TOT1, y = Health_Status)) +
+  geom_point(color = "#0099f9") +
+  theme_classic() + 
+  labs(title = "Physical Symptoms vs. Health Status Scatter Plot", x = "Physical Symptoms", y = "Health Status") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+**Correlation Matrix of Study Variables**
+
+```{r}
+cor.mat <- cor(df %>% dplyr::select(MSAS_TOT1, Health_Status, IOES_TOT1, AVOID_COP, APPCOP),
+               use = "pairwise.complete.obs")
+View(cor.mat)
+round(cor.mat, 3)
+```
+
+**Visualization of Correlation Matrix**
+
+```{r}
+corrplot(cor.mat, method = "circle", type = "lower", order = "hclust")
+```
+
+Positive correlations are displayed in blue, while negative correlations are displayed in red. Color intensity and the size of the circle are proportional to the correlation coefficients. There is a relatively strong positive correlation between avoidance coping (AVOID_COP) and total trauma symptoms (IOES_TOT1) and a relatively strong negative correlation between approach coping (APPCOP) and physical symptoms of cancer (MSAS_TOT1).
+
+# Simple Linear Regression Analysis
+
+**Question**: Is avoidance coping a significant predictor of health status in female patients with breast cancer?
+
+**Goal**: The aim of this study was to investigate whether avoidance coping (AVOID_COP) is a significant predictor of health status (Health_Status) in female patients with breast cancer. Prior research has demonstrated that avoidance coping (efforts oriented toward denying or avoiding dealing directly with stressful demands) is associated with distress and depression. 
+
+**Hypothesis**: I hypothesized that avoidance coping would be a significant, negative predictor of health status. Thus, as avoidance coping increased, the patient's health status would decrease. 
+
+```{r}
+#Run simple linear regression by regressing health status on avoidance coping
+slr <- lm(Health_Status ~ AVOID_COP, data = df)
+summary(slr)
+#Confidence intervals for parameters
+confint(slr)
+#Standardized regression coefficient
+lm.beta(slr)
+```
+
+**Results**: The results of the simple linear regression analysis indicated that as avoidance coping increased by one point on the scale, health status decreased by 0.843 points (95% CI [-1.897, 0.211], *p* > .05).
+Additionally, as avoidance coping increased by one standard deviation, health status decreased by 0.197 standard deviation units.
+However, the results of the simple linear regression analysis indicated that avoidance coping did not explain a significant proportion of the variance in health status (*r^2* = 0.039, *p* > .05). Thus, our hypothesis was not supported, as avoidance coping was not a significant predictor of health status. 
+
+**Visualization of Simple Linear Regression**
+
+```{r}
+ggplot(df, aes(y = Health_Status, x = AVOID_COP)) +
+  geom_smooth(method = "lm") + 
+  geom_point(color = "#0099f9") + 
+  theme_classic() +
+  labs(title = "Health Status Regressed on Avoidance Coping", x = "Avoidance Coping", y = "Health Status") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+# Simultaneous Multiple Linear Regression Analysis
+
+**Question**: Are avoidance coping and approach coping significant predictors of cancer-related trauma among female patients with breast cancer?
+
+**Goal**: The aim of the study was to investigate avoidance coping (AVOID_COP) and approach coping (APPCOP) as predictors of cancer-related trauma (IOES_TOT1) in female patients with breast cancer. 
+
+**Hypothesis**: I hypothesized that avoidance coping would be a significant positive predictor of cancer-related trauma, and approach coping would be a significant negative predictor of cancer-related trauma. 
+
+```{r}
+#Run multiple linear regression by regressing cancer-related trauma on avoidance and approach coping
+mlr <- lm(IOES_TOT1 ~ AVOID_COP + APPCOP, data = df)
+summary(mlr)
+#Confidence intervals for parameters
+confint(mlr)
+#Standardized regression coefficient
+lm.beta(mlr)
+```
+
+**Unstandardized regression equation**: Cancer-Related Trauma = -0.156 + 0.089(Avoidance Coping) - 0.007(Approach Coping).
+
+**Results**: The regression model accounted for a significant proportion of the variance in cancer-related trauma in female patients with breast cancer, such that the optimal linear combination of avoidance coping and approach coping accounted for 33.9% of the variance in cancer-related trauma (*R^2adjusted* = 0.339, *F*(2, 62) = 17.41, *p* < .001).  
+Avoidance coping was a significant, positive predictor of cancer-related trauma. As avoidance coping increased by one point on the scale, cancer-related trauma increased by 0.089 points (CI 95% [0.059, 0.119], *p* < .01).  
+However, approach coping was not a significant predictor of cancer-related trauma (CI 95% [-0.020, 0.005], *p* > .05).  
+Thus, my hypothesis was not fully supported. 
+
+**Visualization of Multiple Linear Regression**
+
+```{r}
+ggplot(df, aes(y = IOES_TOT1, x = AVOID_COP)) +
+  geom_smooth(method = "lm") + 
+  geom_point(color = "#0099f9") + 
+  theme_classic() +
+  labs(title = "Cancer-Related Trauma Regressed on Avoidance Coping", x = "Avoidance Coping", y = "Cancer-Related Trauma") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+ggplot(df, aes(y = IOES_TOT1, x = APPCOP)) +
+  geom_smooth(method = "lm") + 
+  geom_point(color = "#0099f9") + 
+  theme_classic() +
+  labs(title = "Cancer-Related Trauma Regressed on Approach Coping", x = "Approach Coping", y = "Cancer-Related Trauma") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
