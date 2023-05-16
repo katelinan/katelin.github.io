@@ -21,9 +21,9 @@ This repository serves to showcase my skills and as a platform to share my proje
 ### Cancer Patients Analysis
 **Code:** [`cancer patients data analysis.rmd`](https://github.com/katelinan/katelinan.github.io/blob/8cba0958e18b960ddb60b067e388663075537473/Cancer%20Patients%20Data%20Analysis.Rmd)   
 **PDF:** [`cancer patients data analysis.pdf`](https://github.com/katelinan/katelinan.github.io/blob/8cba0958e18b960ddb60b067e388663075537473/Cancer-Patients-Data-Analysis.pdf)   
-**Description:** There is a list of patients with breast cancer with demographic information, health status, total trauma symptoms, coping strategies, support systems, and type of treatment data. The project includes the following steps: data loading, data cleaning and preprocessing, filling missing values, and hypothesis testing (i.e., correlation and regression analyses).
+**Description:** There is a list of patients with breast cancer with demographic information, health status, total trauma symptoms, coping strategies, support systems, and type of treatment data. The project includes the following steps: data loading, data cleaning and preprocessing, filling missing values, and hypothesis testing (i.e., correlation and regression analyses).   
 **Skills:** data cleaning, data analysis, descriptive statistics, hypothesis testing, correlation, simple and multiple linear regression analyses, data visualization.  
-**Technology:** R, RStuido, corrplot(), ggplot().
+**Technology:** R, RStuido, corrplot(), ggplot().   
 **Results:** Correlations between variables and predictors of outcome variables.
 
 ## Contacts
