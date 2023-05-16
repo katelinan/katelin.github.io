@@ -19,11 +19,12 @@ This repository serves to showcase my skills and as a platform to share my proje
 ## Projects
 
 ### Cancer Patients Analysis
-**Code:** [`cancer patients data analysis.rmd`](https://github.com/katelinan/katelinan.github.io/blob/76ae2bb80fe435adad53409233e2d749d46d891c/Cancer%20Patients%20Data%20Analysis.Rmd)   
-**Description:** The dataset contains 16715 records as of 2016. There is a list of video games with sales (by region), year of release, platform, critics and users score. The project includes the following steps: data loading, data cleaning and preprocessing, filling missing values, EDA (exploratory data analysis), analyzing region based user profiles, measuring statistical factors, hypothesis testing.  
-**Skills:** data cleaning, data analysis, descriptive statistics, central limit theorem, hypothesis testing, data visualization.  
-**Technology:** Python, Pandas, Numpy, Scipy Stats, Seaborn, Matplotlib.  
-**Results:** Review of the global and regional video games markets, data-based business recommendations.
+**Code:** [`cancer patients data analysis.rmd`](https://github.com/katelinan/katelinan.github.io/blob/8cba0958e18b960ddb60b067e388663075537473/Cancer%20Patients%20Data%20Analysis.Rmd)   
+**PDF:** ['cancer patients data analysis.pdf'](https://github.com/katelinan/katelinan.github.io/blob/8cba0958e18b960ddb60b067e388663075537473/Cancer-Patients-Data-Analysis.pdf)
+**Description:** There is a list of patients with breast cancer with demographic information, health status, total trauma symptoms, coping strategies, support systems, and type of treatment data. The project includes the following steps: data loading, data cleaning and preprocessing, filling missing values, and hypothesis testing (i.e., correlation and regression analyses).
+**Skills:** data cleaning, data analysis, descriptive statistics, hypothesis testing, correlation, simple and multiple linear regression analyses, data visualization.  
+**Technology:** R, RStuido, corrplot(), ggplot().
+**Results:** Correlations between variables and predictors of outcome variables.
 
 ## Contacts
 - LinkedIn: [@katelinan](https://www.linkedin.com/in/katelinjungan)
